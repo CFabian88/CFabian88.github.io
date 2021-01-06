@@ -1257,7 +1257,7 @@ input, select, textarea {
 		-ms-transition: -ms-transform 0.325s ease-in-out, -ms-filter 0.325s ease-in-out, opacity 0.325s ease-in-out;
 		transition: transform 0.325s ease-in-out, filter 0.325s ease-in-out, opacity 0.325s ease-in-out;
 		/* MAIN PAGE BACKGROUND */
-		background-image: url("../../images/overlay.png");
+		background-image: url("../../images/background.jpg");
 		background-size: cover;
 		background-repeat: no-repeat;
 		background-position: center center;

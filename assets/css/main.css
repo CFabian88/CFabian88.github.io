@@ -97,7 +97,7 @@ input, select, textarea {
 	body {
 		/* background: #1b1f22; */
 		/* MAIN PAGE BACKGROUND */
-		background: url("../../images/pic03.jpg");
+		background: url("../../images/background.jpg");
 	}
 
 		body.is-preload *, body.is-preload *:before, body.is-preload *:after {
@@ -1257,7 +1257,7 @@ input, select, textarea {
 		-ms-transition: -ms-transform 0.325s ease-in-out, -ms-filter 0.325s ease-in-out, opacity 0.325s ease-in-out;
 		transition: transform 0.325s ease-in-out, filter 0.325s ease-in-out, opacity 0.325s ease-in-out;
 		/* HEADER BACKGROUND */
-		background-image: url("../../images/background.jpg");
+		background-image: url("../../images/overlay.png");
 		background-size: cover;
 		background-repeat: no-repeat;
 		background-position: center center;

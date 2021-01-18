@@ -142,152 +142,152 @@
 									</a>
 									<pre class="prettyprint">
 										"""
-										Class: CS230--Section 001
-										Name: Collin Fabian
-										Date: 4/27/2020
-										Description: Homework assignment #5 - Starbucks Location Finder
+Class: CS230--Section 001
+Name: Collin Fabian
+Date: 4/27/2020
+Description: Homework assignment #5 - Starbucks Location Finder
 
-										By submitting this assignment, I certify that:
-										I have completed this programming assignment independently.
-										I have not copied the code from a student or any source.
-										I have not shared my code with any student.
-										"""
-										# Import Modules
-										import os
-										import pandas as pd
+By submitting this assignment, I certify that:
+I have completed this programming assignment independently.
+I have not copied the code from a student or any source.
+I have not shared my code with any student.
+"""
+# Import Modules
+import os
+import pandas as pd
 
-										# Set Directory Path
-										os.chdir('/Users/fabian_coll/Desktop/Old Courses + Text/CS230-001/Homeworks/hw5')
+# Set Directory Path
+os.chdir('/Users/fabian_coll/Desktop/Old Courses + Text/CS230-001/Homeworks/hw5')
 
-										# Symbolic Constants
-										SB_FILE = 'All_Starbucks_Locations_in_the_US.csv'
-										FILTERS = ('Store Number', 'Name', 'Street Address', 'City', 'State', 'Zip', 'Latitude',
-												'Longitude', 'Features - Stations')
-										STATE_ABBREVIATIONS = ("AL", "AK", "AZ", "AR", "CA", "CO", "CT", "DC", "DE", "FL", "GA",
-															"HI", "ID", "IL", "IN", "IA", "KS", "KY", "LA", "ME", "MD",
-															"MA", "MI", "MN", "MS", "MO", "MT", "NE", "NV", "NH", "NJ",
-															"NM", "NY", "NC", "ND", "OH", "OK", "OR", "PA", "RI", "SC",
-															"SD", "TN", "TX", "UT", "VT", "VA", "WA", "WV", "WI", "WY")
+# Symbolic Constants
+SB_FILE = 'All_Starbucks_Locations_in_the_US.csv'
+FILTERS = ('Store Number', 'Name', 'Street Address', 'City', 'State', 'Zip', 'Latitude',
+           'Longitude', 'Features - Stations')
+STATE_ABBREVIATIONS = ("AL", "AK", "AZ", "AR", "CA", "CO", "CT", "DC", "DE", "FL", "GA",
+                       "HI", "ID", "IL", "IN", "IA", "KS", "KY", "LA", "ME", "MD",
+                       "MA", "MI", "MN", "MS", "MO", "MT", "NE", "NV", "NH", "NJ",
+                       "NM", "NY", "NC", "ND", "OH", "OK", "OR", "PA", "RI", "SC",
+                       "SD", "TN", "TX", "UT", "VT", "VA", "WA", "WV", "WI", "WY")
 
-										# Functions
-											# Get Data Function
-										def getData():
-											data = None
-											try:
-												csv = pd.read_csv(SB_FILE)
-												data = pd.DataFrame(data=csv, columns=FILTERS)
-											except OSError:
-												print(f'Error. could not find file.')
-												exit()
-											return(data)
+# Functions
+    # Get Data Function
+def getData():
+    data = None
+    try:
+        csv = pd.read_csv(SB_FILE)
+        data = pd.DataFrame(data=csv, columns=FILTERS)
+    except OSError:
+        print(f'Error. could not find file.')
+        exit()
+    return(data)
 
-											# Display Stores
-										def displayStores(dfStores):
-											print('Name/Location')
-											for index, row in dfStores.iterrows():
-												print(row['Name'])
-												print(row['Street Address'])
-												print(row['City']+',', row['State'], row['Zip'], '\n')
+    # Display Stores
+def displayStores(dfStores):
+    print('Name/Location')
+    for index, row in dfStores.iterrows():
+        print(row['Name'])
+        print(row['Street Address'])
+        print(row['City']+',', row['State'], row['Zip'], '\n')
 
-											# Stores by City and State
-										def findStoresByCityState(dfStores):
-											print(f'===== City and State Finder =====')
-											done = False
-											state = None
-											while not done:
-												error = True
-												city = input('Enter a City (Enter to stop): ').capitalize()
-												if city == '':
-													done = True
-												else:
-													while error:
-														state = input('Enter a state abbreviation: ').upper()
-														if state in STATE_ABBREVIATIONS:
-															error = False
-														else:
-															print('Error. Please enter a valid state')
-													print(f'\nStarbucks Locations by City and State')
-													storesFound = dfStores.loc[(dfStores['City'] == city) & (dfStores['State'] == state)]
-													if storesFound.empty:
-														print(f'There are no stores satisfying this criteria', '\n')
-													elif len(storesFound) == 1:
-														print(f'There is {len(storesFound)} store satisfying this criteria', '\n')
-														displayStores(storesFound)
-													else:
-														print(f'There are {len(storesFound)} stores satisfying this criteria', '\n')
-														displayStores(storesFound)
+    # Stores by City and State
+def findStoresByCityState(dfStores):
+    print(f'===== City and State Finder =====')
+    done = False
+    state = None
+    while not done:
+        error = True
+        city = input('Enter a City (Enter to stop): ').capitalize()
+        if city == '':
+            done = True
+        else:
+            while error:
+                state = input('Enter a state abbreviation: ').upper()
+                if state in STATE_ABBREVIATIONS:
+                    error = False
+                else:
+                    print('Error. Please enter a valid state')
+            print(f'\nStarbucks Locations by City and State')
+            storesFound = dfStores.loc[(dfStores['City'] == city) & (dfStores['State'] == state)]
+            if storesFound.empty:
+                print(f'There are no stores satisfying this criteria', '\n')
+            elif len(storesFound) == 1:
+                print(f'There is {len(storesFound)} store satisfying this criteria', '\n')
+                displayStores(storesFound)
+            else:
+                print(f'There are {len(storesFound)} stores satisfying this criteria', '\n')
+                displayStores(storesFound)
 
-											# Stores by Zip Code
-										def findStoresByZip(dfStores):
-											print(f'===== Zip Code Finder =====')
-											done = False
-											while not done:
-												zip = input(f'Enter a zip code (Enter to stop): ')
-												if zip == '':
-													done = True
-												else:
-													print(f'\nStarbucks Locations by Zip Code')
-													storesFound = dfStores.loc[dfStores['Zip'].str.startswith(zip, na=False)]
-													if storesFound.empty:
-														print(f'There are no stores satisfying this criteria', '\n')
-													elif len(storesFound) == 1:
-														print(f'There is {len(storesFound)} store satisfying this critera', '\n')
-														displayStores(storesFound)
-													else:
-														print(f'There are {len(storesFound)} stores satisfying this criteria', '\n')
-														displayStores(storesFound)
+    # Stores by Zip Code
+def findStoresByZip(dfStores):
+    print(f'===== Zip Code Finder =====')
+    done = False
+    while not done:
+        zip = input(f'Enter a zip code (Enter to stop): ')
+        if zip == '':
+            done = True
+        else:
+            print(f'\nStarbucks Locations by Zip Code')
+            storesFound = dfStores.loc[dfStores['Zip'].str.startswith(zip, na=False)]
+            if storesFound.empty:
+                print(f'There are no stores satisfying this criteria', '\n')
+            elif len(storesFound) == 1:
+                print(f'There is {len(storesFound)} store satisfying this critera', '\n')
+                displayStores(storesFound)
+            else:
+                print(f'There are {len(storesFound)} stores satisfying this criteria', '\n')
+                displayStores(storesFound)
 
-											# Stores by Zip Code and Drive Through
-										def findStoresByDriveThru(dfStores):
-											print(f'===== Zip Code with Drive-Through Finder =====')
-											done = False
-											while not done:
-												zip = input(f'Enter a zip code (Enter to stop): ')
-												if zip == '':
-													done = True
-												else:
-													print(f'\nStarbucks Locations by Zip Code')
-													storesFound = dfStores.loc[(dfStores['Zip'].str.startswith(zip, na=False)) &
-																			(dfStores['Features - Stations'] == 'Drive-Through')]
-													if storesFound.empty:
-														print(f'There are no stores satisfying this criteria', '\n')
-													elif len(storesFound) == 1:
-														print(f'There is {len(storesFound)} store satisfying this critera', '\n')
-														displayStores(storesFound)
-													else:
-														print(f'There are {len(storesFound)} stores satisfying this criteria', '\n')
-														displayStores(storesFound)
+    # Stores by Zip Code and Drive Through
+def findStoresByDriveThru(dfStores):
+    print(f'===== Zip Code with Drive-Through Finder =====')
+    done = False
+    while not done:
+        zip = input(f'Enter a zip code (Enter to stop): ')
+        if zip == '':
+            done = True
+        else:
+            print(f'\nStarbucks Locations by Zip Code')
+            storesFound = dfStores.loc[(dfStores['Zip'].str.startswith(zip, na=False)) &
+                                       (dfStores['Features - Stations'] == 'Drive-Through')]
+            if storesFound.empty:
+                print(f'There are no stores satisfying this criteria', '\n')
+            elif len(storesFound) == 1:
+                print(f'There is {len(storesFound)} store satisfying this critera', '\n')
+                displayStores(storesFound)
+            else:
+                print(f'There are {len(storesFound)} stores satisfying this criteria', '\n')
+                displayStores(storesFound)
 
-											# Main Menu
-										def main():
-											df = getData()
-											print('*** Starbucks Store Finder ***')
-											done = False
-											while not done:
-												print(f'''
-											1 - Find Stores by City and State
-											2 - Find Stores by Zip Code
-											3 - Find Stores by Zip Code and with Drive-Through
-											4 - Quit''')
-												try:
-													choice = int(input('Enter your choice: '))
-													if choice == 1:
-														findStoresByCityState(df)
-													elif choice == 2:
-														findStoresByZip(df)
-													elif choice == 3:
-														findStoresByDriveThru(df)
-													elif choice == 4:
-														print('Thank you for using the Starbucks Store Finder!')
-														done = True
-													else:
-														print('Error. Please enter a valid option')
-												except ValueError:
-													print('Error. Please enter an integer value')
+    # Main Menu
+def main():
+    df = getData()
+    print('*** Starbucks Store Finder ***')
+    done = False
+    while not done:
+        print(f'''
+    1 - Find Stores by City and State
+    2 - Find Stores by Zip Code
+    3 - Find Stores by Zip Code and with Drive-Through
+    4 - Quit''')
+        try:
+            choice = int(input('Enter your choice: '))
+            if choice == 1:
+                findStoresByCityState(df)
+            elif choice == 2:
+                findStoresByZip(df)
+            elif choice == 3:
+                findStoresByDriveThru(df)
+            elif choice == 4:
+                print('Thank you for using the Starbucks Store Finder!')
+                done = True
+            else:
+                print('Error. Please enter a valid option')
+        except ValueError:
+            print('Error. Please enter an integer value')
 
 
-										# Main Function
-										main()
+# Main Function
+main()
 									</pre>
 								</article>
 

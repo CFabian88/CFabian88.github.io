@@ -2,6 +2,12 @@
 <html>
 	<head>
 		<script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js?lang=css&amp;skin=sunburst"></script>
+		<script src="jquery.js"></script>
+		<script> 
+			$(function(){
+			  $("#DivContent").load("noDoze.html"); 
+			});
+		</script> 
 		<title>Collin Fabian Work Portfolio</title>
 		<meta charset="utf-8" />
 		<meta name="viewport" content="width=device-width, initial-scale=1, user-scalable=no" />
@@ -578,110 +584,7 @@ if selection.lower() == 's':
 
 								<!-- R Scripts: NoDoze -->
 								<article id="noDoze">
-									<div class="tip" markdown="1">
-										---
-title: "NoDoze: Reaction Time Analysis"
-author: "Collin Fabian"
-date: "1/27/2021"
-output:
-  html_document:
-    df_print: paged
----
-```{r, echo=FALSE}
-setwd("/Users/fabian_coll/Desktop/MA255-SN1/Labs")
-nodoze = read.csv("http://bit.ly/255lab2")
-
-```
-
-The first thing we want to do is get a quick summary of data. This way we will be able to make better judgements about our variables.
-```{r}
-summary(nodoze)
-```
-**Variable Types**\
-ID - Categorical Nominal\
-Gender - Categorical Nominal\
-Age - Numerical Discrete\
-Grade - Categorical Ordinal\
-Treatment - Categorical Nominal\
-React - Numerical Continuous\
-
-```{r}
-new.data = data.frame(ID=c("CR","YC","XZ","AA"), 
-                      gender = c("Female", "Male", "Male", "Female"), 
-                      age = c(19, 19, 20, 18),
-                      grade=c("B", "D", "B", "A"),
-                      treatment = c(1, 0, 1, 0), 
-                      react = c(626, 656, 641, 719))
-
-
-nodoze = rbind(nodoze, new.data)
-write.csv(nodoze, file="lab1.csv", row.names=FALSE)
-```
-Summary Statistics for Participants' Age
-```{r}
-summary(nodoze$age)
-```
-Summary Statistics for Reaction Time
-```{r}
-summary(nodoze$react)
-```
-
-**Basic Summary of Age and Reaction Time Variables**\
-The students in this experiment range from **17** to **25** years old, with a **median** age of 20 years old. Roughly one half (50%) of the students are between **17** and **20** years old. Response times range from **595** to **753** milliseconds, with a median of approximately **657** milliseconds.\
-
-Next we will look at the boxplot and histogram of the ages of the participants. By examining these two plots we can observe characteristics of the data that we can not see otherwise.
-```{r}
-boxplot(nodoze$age, 
-        main = 'Boxplot of Participants\' Age',
-        ylab = 'Age')
-```
-```{r}
-hist(nodoze$age,
-     main = 'Histogram of Participants\' Age',
-     ylab = 'Frequency',
-     xlab = 'Age')
-```
-\
-**Histogram vs. Boxplot**\
-In a histogram you can observe the number of participants that are each age within the dataset, whereas with a boxplot you cannot. However, with a boxplot, you can observe the number of outliers in the dataset as well as which age values are these outliers. With a histogram, you cannot observe this.
-```{r}
-treat_zero <- subset(nodoze, treatment == 0) 
-treat_one <- subset(nodoze, treatment == 1)
-```
-Mean Reaction Time (Treatment=0)
-```{r}
-mean(treat_zero$react)
-```
-Mean Reaction Time (Treatment=1)
-```{r}
-mean(treat_one$react)
-```
-Boxplot of Reaction Times (Split by Treatments)
-```{r}
-par(mfrow=c(1,2))
-boxplot(treat_zero$react,
-        main = 'Treatment=0',
-        ylab = 'Reaction Time (milliseconds)',
-        ylim = c(550, 750))
-boxplot(treat_one$react,
-        main = 'Treatment=1',
-        ylim = c(550, 750))
-```
-\
-**Initial Thoughts**\
-Based off of what we have observed from the summary statistics and visual plots, it is becoming clear that we can expect to get statistically significant evidence to show that the reaction times of the participants differed based on their treatment. It is clear that we have preliminary evidence of a treatment effect.
-
-2-Sided T-Test for Difference in Means Between Treatment Groups
-```{r}
-t.test(nodoze$react~nodoze$treatment,
-       alternative = 'two.sided')
-```
-**T-Test Results**\
-Since our t-test yielded a p-value of 0.0487, we can reject the null hypothesis that the two groups' true means are equal. Therefore, we can conclude that NoDoze does in fact reduce reaction time while driving. We can make casual conclusions based on this assessment because all assumptions of the experiment and data were satisfied along with finding statistically significant results.\
-
-**Limitations to Experiment**\
-One limitation to the study is that we cannot account for the previous driving history of the drivers. For example, we cannot be sure that one treatment group is composed of drivers that have naturally better reaction times based on sports/hobbies etc. One limitation that affects the internal validity of the experiment could be the car that they are driving during the experiment, or if they were even driving the same car. Obviously people drive different vehicles and are therefore feel more comfortable in some vehicles compared to others. For example, if they were using a particularly large vehicle like a truck, a person who normally drives a smaller car might be affected in their reaction time based on the difference in size of the two vehicles. One thing that I would like to see before making a final reccomendation about NoDoze is how the product effects drivers of middle-to-older ages. In the experiment, the range of ages amongst the participants was 17 to 25. Therefore, we cannot be certain that the natural underlying health effects of aging would not affect the eficacy of NoDoze.
-									</div>
+									<div id="DivContent"></div>
 								</article>
 
 						<!-- Contact -->

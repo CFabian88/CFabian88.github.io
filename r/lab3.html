@@ -1725,7 +1725,10 @@ However, in order to make any further conclusions about our <strong>average trea
 <pre class="r"><code>tapply(se15$Hire_Rating, se15$condition, mean)</code></pre>
 <pre><code>##    audio     text 
 ## 4.714286 2.888889</code></pre>
-<p>We can see that the initial estimation for the causal effect audio compared to text is T=4.7143-2.8889=1.8254. <strong>Randomization Test</strong> We may now perform the same randomization test as before.</p>
+<p>We can see that the initial estimation for the causal effect audio compared to text is T=4.7143-2.8889=1.8254.<br />
+<br />
+<strong>Randomization Test</strong><br />
+We may now perform the same randomization test as before.</p>
 <pre class="r"><code>set.seed(123)
 possible.diffs = c() # create vector to store results
 n.sim = 1000
